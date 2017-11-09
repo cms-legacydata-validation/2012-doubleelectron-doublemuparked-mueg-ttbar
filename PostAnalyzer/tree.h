@@ -1,5 +1,5 @@
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-// This class contains all needed variables to read ROOT ntuples for ttbar abalysis
+// This class contains all needed variables to read ROOT ntuples for ttbar analysis
 // (automaticlly produced by ROOT, then slightly tuned manually)
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -134,8 +134,6 @@ public :
    // initialise with provided tree pointer
    virtual void    Init(TTree *tree);
 };
-
-//#endif
 
 // initialise with provided tree pointer
 void ZTree::Init(TTree *tree)

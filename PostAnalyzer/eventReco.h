@@ -57,11 +57,11 @@ class ZVarHisto
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-// >>>>>>>>>> Fill hostogram from ZVarHisto class >>>>>>>>>>>>>>>>>>>>>>
+// >>>>>>>>>> Fill histogram from ZVarHisto class >>>>>>>>>>>>>>>>>>>>>>
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //
 // Arguments:
-//   std::vector<ZVarHisto>& VecVarHisto: vector of obejcts to be filled
+//   std::vector<ZVarHisto>& VecVarHisto: vector of objects to be filled
 //   double w: weight
 //   TLorentzVector* t: top quark momentum
 //   TLorentzVector* tbar: antitop quark momentum

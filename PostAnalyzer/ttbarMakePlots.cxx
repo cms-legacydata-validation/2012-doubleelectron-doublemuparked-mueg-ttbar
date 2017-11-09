@@ -1,6 +1,6 @@
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-// This code processes ROOT ntuples histograms for ttbar analysis, 
-// (produced by ttbarMakeHist.cxx), and makes final plots an numbers 
+// This code processes ROOT histograms for ttbar analysis,
+// (produced by ttbarMakeHist.cxx), and makes final plots and numbers
 // (more precisely, control plots to be compared to TOP-11-013 Fig. 4, 
 // normalised cross sections to be compared to TOP-11-013 Fig. 10 
 // and the total cross section to be compared to TOP-13-004).

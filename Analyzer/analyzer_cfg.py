@@ -30,7 +30,7 @@ if len(sys.argv) < 4:
   print("Usage: cmsRun analyzer_cfg.py <input list> <output file> <reco flag> <gen flag> <mc flag>")
   inputList = inFileTest
   outFile = outFileTest
-  # do not stop execution at this point, run with defauls arguments
+  # do not stop execution at this point, run with default arguments
   #sys.exit("Wrong usage!")
 else:                 
   inputList = FileUtils.loadListFromFile(sys.argv[2])
@@ -101,7 +101,7 @@ if flag_mc == 0:
 # Load jet correction services for all jet algoritms
 process.load("JetMETCorrections.Configuration.JetCorrectionServicesAllAlgos_cff")
 #
-# all is ready: pass all arguments to Anlayzer (C++ code in src/Analtyzer.cc)
+# all is ready: pass all arguments to Analyzer (C++ code in src/Analyzer.cc)
 process.demo = cms.EDAnalyzer('Analyzer', outFile = cms.string(outFile), mc = CfgTypes.int32(flag_mc), reco = CfgTypes.int32(flag_reco), gen = CfgTypes.int32(flag_gen))
 process.p = cms.Path(process.demo)
 #

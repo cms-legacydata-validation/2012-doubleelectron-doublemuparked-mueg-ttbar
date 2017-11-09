@@ -210,7 +210,7 @@ void PlotCS(const ZPlotCSInput& in)
     cs = hcombcs->IntegralAndError(0, hcombcs->GetNbinsX() + 1, cserr);
     double br = 0.046 * 2500.0;
     // the total x-section in the combined dilepton channel is calculated, 
-    // but not plotted by default: no reference number form in CMS papers
+    // but not plotted by default: no reference number in CMS papers
     //printf("x-section dilepton %s:  %.1f +- %.1f\n", var.Data(), cs / br, cserr / br, nsig / nreco * ngen / br);
     if(in.Norm)
       hcombcs->Scale(1.0 / hcombcs->Integral(), "width");

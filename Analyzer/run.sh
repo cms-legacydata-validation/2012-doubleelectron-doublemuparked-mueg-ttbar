@@ -113,7 +113,7 @@ mc=0
 # Things to consider when finding the optimal number of jobs:
 #  1) each parallel job eats about 250MB..1GB memory (depending on data or MC sample, how long is running etc.)
 #  2) on Intel Core i5-5300U (2.3GHz) one processor core becomes ~100% busy with ~5 jobs
-#  3) depends heavily on the newtork access (with slow network you will not win much with many parallel jobs)
+#  3) depends heavily on the network access (with slow network you will not win much with many parallel jobs)
 #  4) timing results can be quite stochastic
 # Splitting of input files between parallel jobs is done automatically
 # (there will be NP root and log files in the output directory).
