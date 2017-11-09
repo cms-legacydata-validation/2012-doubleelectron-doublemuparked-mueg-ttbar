@@ -1,10 +1,9 @@
-# CMS measurements of top quark pair production in dilepton channel at 7 TeV
+# CMS measurements of top quark pair production in dilepton channel at 8 TeV
 
-Relevant CMS publications:
- * normalised cross sections: EPJ C73 (2013) 2339 [arXiv:1211.2220, TOP-11-013]
+Relevant CMS publication:
+ * normalised cross sections: EPJ C75 (2015) 542 [arXiv:1505.04480, TOP-12-028]
  * total cross section: JHEP 1608 (2016) 029 [arXiv:1603.02303,TOP-13-004]
 
-Further relevant information can be found also in DESY-THESIS-2012-037
 For the general description of the analysis see also attached description-ttbar.pdf
 
 There are two parts in this analysis:
