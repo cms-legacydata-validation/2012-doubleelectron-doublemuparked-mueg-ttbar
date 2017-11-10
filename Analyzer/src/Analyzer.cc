@@ -305,26 +305,16 @@ Analyzer::Analyzer(const edm::ParameterSet& iConfig)
     // triggers
     _tree->Branch("Triggers", &_triggers, "Triggers/I"); // trigger bits (see trigger names below)
     // mumu triggers
-    _vecTriggerNames.push_back("HLT_DoubleMu7");
-    _vecTriggerNames.push_back("HLT_Mu13_Mu8");
-    _vecTriggerNames.push_back("HLT_Mu17_Mu8");
-    _vecTriggerNames.push_back("HLT_DoubleMu6");
-    _vecTriggerNames.push_back("HLT_DoubleMu45");
-    _vecTriggerNames.push_back("HLT_Mu10_Ele10_CaloIdl");
+    _vecTriggerNames.push_back("HLT_Mu17_Mu8_v");
+    _vecTriggerNames.push_back("HLT_Mu17_TkMu8_v");
+    //_vecTriggerNames.push_back("HLT_Mu17_Mu8_v17");
+    //_vecTriggerNames.push_back("HLT_Mu17_TkMu8_v10");
     // ee triggers
-    _vecTriggerNames.push_back("HLT_Ele17_CaloIdL_CaloIsoVL_Ele8_CaloIdL_CaloIsoVL");
-    _vecTriggerNames.push_back("HLT_Ele17_CaloIdT_TrkIdVL_CaloIsoVL_TrkIsoVL");
-    _vecTriggerNames.push_back("HLT_Ele8_CaloIdT_TrkIdVL_CaloIsoVL_TrkIsoVL");
-    _vecTriggerNames.push_back("HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_");
-    _vecTriggerNames.push_back("HLT_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL");
-    _vecTriggerNames.push_back("HLT_DoubleEle45_CaloIdL");
+    _vecTriggerNames.push_back("HLT_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL");
+    _vecTriggerNames.push_back("Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v");
     // emu triggers
-    _vecTriggerNames.push_back("HLT_Mu10_Ele10_CaloIdL");
-    _vecTriggerNames.push_back("HLT_Mu8_Ele17_CaloIdL");
-    _vecTriggerNames.push_back("HLT_Mu17_Ele8_CaloIdL");
-    _vecTriggerNames.push_back("HLT_Mu8_Ele17_CaloIdT_CaloIsoVL");
-    _vecTriggerNames.push_back("HLT_Mu17_Ele8_CaloIdT_CaloIsoVL");
-    _vecTriggerNames.push_back("HLT_Mu10_Ele10_CaloIdL");
+    _vecTriggerNames.push_back("HLT_Mu17_Ele8_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v");
+    _vecTriggerNames.push_back("HLT_Mu8_Ele17_CaloIdT_CaloIsoVL_TrkIdVL_TrkIsoVL_v");
     // primary vertex
     _tree->Branch("Npv", &_Npv, "Npv/I"); // total number of primary vertices
     _tree->Branch("pvNDOF", &_pvNDOF, "pvNDOF/I"); // number of degrees of freedom of the primary vertex
@@ -443,7 +433,7 @@ int Analyzer::SelectMu(const edm::Handle<reco::MuonCollection>& muons, const rec
     _muIso03[_Nmu] = ( iso03.sumChargedParticlePt + iso03.sumNeutralHadronEt ) / it->pt();
     const reco::MuonPFIsolation& iso04 = it->pfIsolationR04();
     _muIso04[_Nmu] = ( iso04.sumChargedParticlePt + iso04.sumNeutralHadronEt ) / it->pt();
-    if(_muIso03[_Nmu] > 0.20 && _muIso04[_Nmu] > 0.125)
+    if(_muIso03[_Nmu] > 0.15)
       continue;
     // fill number of hits variables
     _muHitsValid[_Nmu] = 0;
@@ -497,7 +487,7 @@ int Analyzer::SelectEl(const edm::Handle<reco::GsfElectronCollection>& electrons
     // fill isolation
     _elIso03[_Nel] = (it->dr03TkSumPt() + it->dr03EcalRecHitSumEt() + it->dr03HcalTowerSumEt()) / it->pt();
     _elIso04[_Nel] = (it->dr04TkSumPt() + it->dr04EcalRecHitSumEt() + it->dr04HcalTowerSumEt()) / it->pt();
-    if(_elIso03[_Nel] > 0.17 && _elIso04[_Nel] > 0.125)
+    if(_elIso03[_Nel] > 0.15)
       continue;
     // fill three momentum (pT, eta, phi)
     _elPt[_Nel] = it->pt() * it->charge();
@@ -615,7 +605,7 @@ int Analyzer::SelectJet(const edm::Handle<reco::PFJetCollection>& jets, const re
     }
     _Njet++;
   }
-  // if there are less then two jets selected, thiscan be skipped (return status 1)
+  // if there are less then two jets selected, this can be skipped (return status 1)
   if(_Njet < 2)
     status = 1;
   return status;

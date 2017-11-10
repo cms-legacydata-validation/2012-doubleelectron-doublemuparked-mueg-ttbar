@@ -12,9 +12,11 @@ import sys
 # can be invoked with no parameters passed, in this case use default values
 #
 # input file name
-inFileTest = 'root://eospublic.cern.ch//eos/opendata/cms/MonteCarlo2011/Summer11LegDR/TTJets_TuneZ2_7TeV-madgraph-tauola/AODSIM/PU_S13_START53_LV6-v1/00000/00A4E1AF-B3C7-E311-BA6D-002590200808.root'
+# data, muon-electron sample
+#inFileTest = 'root://eospublic.cern.ch//eos/opendata/cms/Run2012B/MuEG/AOD/22Jan2013-v1/20000/00233284-C16C-E211-8D86-00266CFFBE88.root'
+# signal MC
+inFileTest = 'root://eospublic.cern.ch//eos/opendata/cms/MonteCarlo2012/Summer12_DR53X/TTJets_MSDecays_central_TuneZ2star_8TeV-madgraph-tauola/AODSIM/PU_S10_START53_V19-v1/00000/0037BFA7-D943-E311-8FA3-00266CF9C018.root'
 # for fast tests, you can copy input ROOT files to the local machine
-#inFileTest = 'file:/home/cms-opendata/cmsOpenDataFiles/00A4E1AF-B3C7-E311-BA6D-002590200808.root'
 #
 # output file name
 outFileTest = 'ttbarTmp.root'
@@ -30,6 +32,9 @@ if len(sys.argv) < 4:
   print("Usage: cmsRun analyzer_cfg.py <input list> <output file> <reco flag> <gen flag> <mc flag>")
   inputList = inFileTest
   outFile = outFileTest
+  flag_reco = 1
+  flag_gen  = 1
+  flag_mc   = 1
   # do not stop execution at this point, run with default arguments
   #sys.exit("Wrong usage!")
 else:                 
@@ -62,13 +67,19 @@ if flag_mc == 0:
 #    ln -sf /cvmfs/cms-opendata-conddb.cern.ch/FT_53_LV5_AN1_RUNA.db FT_53_LV5_AN1_RUNA.db
   process.GlobalTag.connect = cms.string('sqlite_file:/cvmfs/cms-opendata-conddb.cern.ch/FT_53_LV5_AN1_RUNA.db')
   process.GlobalTag.globaltag = 'FT_53_LV5_AN1::All'
-# MC
-# Before should be done:
-#ln -sf /cvmfs/cms-opendata-conddb.cern.ch/START53_LV6A1.db START53_LV6A1.db
-#ln -sf /cvmfs/cms-opendata-conddb.cern.ch/START53_LV6A1 START53_LV6A1
+  # 2012
+  # Before should be done:
+#  ln -sf /cvmfs/cms-opendata-conddb.cern.ch/FT53_V21A_AN6 FT53_V21A_AN6
+#  ln -sf /cvmfs/cms-opendata-conddb.cern.ch/FT53_V21A_AN6.db FT53_V21A_AN6.db
+  process.GlobalTag.connect = cms.string('sqlite_file:/cvmfs/cms-opendata-conddb.cern.ch/FT53_V21A_AN6.db')
+  process.GlobalTag.globaltag = 'FT53_V21A_AN6::All'
 else:
-  process.GlobalTag.connect = cms.string('sqlite_file:/cvmfs/cms-opendata-conddb.cern.ch/START53_LV6A1.db')
-  process.GlobalTag.globaltag = 'START53_LV6A1::All'
+  # MC
+  # Before should be done:
+# ln -sf /cvmfs/cms-opendata-conddb.cern.ch/START53_V27.db START53_V27.db
+# ln -sf /cvmfs/cms-opendata-conddb.cern.ch/START53_V27 START53_V27
+  process.GlobalTag.connect = cms.string('sqlite_file:/cvmfs/cms-opendata-conddb.cern.ch/START53_V27.db')
+  process.GlobalTag.globaltag = 'START53_V27::All'
 #
 # intialize MessageLogger and output report
 process.load("FWCore.MessageLogger.MessageLogger_cfi")
@@ -93,7 +104,7 @@ else:
 #
 # JSON (good luminosity sections), only if processing data
 if flag_mc == 0:
-  goodJSON = 'data/Cert_160404-180252_7TeV_ReRecoNov08_Collisions11_JSON.txt'
+  goodJSON = 'data/Cert_190456-208686_8TeV_22Jan2013ReReco_Collisions12_JSON.txt'
   myLumis = LumiList.LumiList(filename = goodJSON).getCMSSWString().split(',') 
   process.source.lumisToProcess = cms.untracked.VLuminosityBlockRange()
   process.source.lumisToProcess.extend(myLumis) 
