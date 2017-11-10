@@ -14,12 +14,10 @@ TString gBaseDir  = "./";
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //
 // these are "normal" settings 
-//TString gDataDir  = gBaseDir + "./ntuples-data"; // directory with data ntuples
-//TString gMcDir    = gBaseDir + "./ntuples-mc"; // directory with MC ntuples
+TString gDataDir  = gBaseDir + "./ntuples-data"; // directory with data ntuples
+TString gMcDir    = gBaseDir + "./ntuples-mc"; // directory with MC ntuples
 TString gHistDir  = gBaseDir + "./hist"; // directory with histograms
 TString gPlotsDir = gBaseDir + "./plots"; // directory with final plots
-TString gDataDir = "/nfs/dust/cms/user/zenaiev/opendata_from_herafitter-2/ttbar/data_Nov16";
-TString gMcDir = "/nfs/dust/cms/user/zenaiev/opendata_from_herafitter-2/ttbar/mc_Nov16";
 //
 // For exercises, you could use existing "reference" histograms 
 // (they are provided at git) to produce final plots, or even existing 

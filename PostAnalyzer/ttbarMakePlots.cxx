@@ -1,8 +1,8 @@
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 // This code processes ROOT histograms for ttbar analysis,
 // (produced by ttbarMakeHist.cxx), and makes final plots and numbers
-// (more precisely, control plots to be compared to TOP-11-013 Fig. 4, 
-// normalised cross sections to be compared to TOP-11-013 Fig. 10 
+// (more precisely, control plots to be compared to TOP-12-028 Fig. 4,
+// normalised cross sections to be compared to TOP-12-028 Figs. 12 and 14
 // and the total cross section to be compared to TOP-13-004).
 // Run: ./ttbarMakePlots
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -29,22 +29,22 @@
 //
 void Style()
 {
-	gStyle->SetOptStat(000000000);
-	gStyle->SetTitle(0);
-	gStyle->SetFrameFillColor(0);
-	gStyle->SetPadColor(0);
-	gStyle->SetCanvasColor(0);
-	gStyle->SetStatColor(0);
-	gStyle->SetCanvasBorderMode(0);
-	gStyle->SetCanvasBorderSize(0);
-	gStyle->SetFrameBorderMode(0);
-	gStyle->SetFrameBorderSize(0);
-	gStyle->SetPadTickX(1);
-	gStyle->SetPadTickY(1);
-	//gStyle->SetPadGridX(1);
-	//gStyle->SetPadGridY(1);
-	gStyle->SetLegendBorderSize(0);
-	gStyle->SetEndErrorSize(5);
+  gStyle->SetOptStat(000000000);
+  gStyle->SetTitle(0);
+  gStyle->SetFrameFillColor(0);
+  gStyle->SetPadColor(0);
+  gStyle->SetCanvasColor(0);
+  gStyle->SetStatColor(0);
+  gStyle->SetCanvasBorderMode(0);
+  gStyle->SetCanvasBorderSize(0);
+  gStyle->SetFrameBorderMode(0);
+  gStyle->SetFrameBorderSize(0);
+  gStyle->SetPadTickX(1);
+  gStyle->SetPadTickY(1);
+  //gStyle->SetPadGridX(1);
+  //gStyle->SetPadGridY(1);
+  gStyle->SetLegendBorderSize(0);
+  gStyle->SetEndErrorSize(5);
   TGaxis::SetMaxDigits(3);
   gStyle->SetErrorX(0.0);
   gStyle->SetPadLeftMargin(0.18);
@@ -84,7 +84,7 @@ int main(int argc, char** argv)
   
   // MC samples for control plots
   // (does not matter which are signal and which are background);
-  // each sample can contain multiple subsamples (container of containers, 
+  // each sample can contain multiple subsamples (container of containers,
   // e.g. this is needed to combine in one entry DY low mass and high mass)
   std::vector<std::vector<TString> > vecMCName; // names (must be consistent with those in ttbarMakeHist.cxx)
   std::vector<int> vecMCColor; // color codes
@@ -92,15 +92,10 @@ int main(int argc, char** argv)
   // they come in the reversed order w.r.t how they will appear in the legend
   // Drell-Yan
   std::vector<TString> DYNames;
-  DYNames.push_back("DYlm");
   DYNames.push_back("DYhm");
   vecMCName.push_back(DYNames);
   vecMCColor.push_back(kBlue);
   vecMCtitle.push_back("Z / #gamma*");
-  // W+jets
-  vecMCName.push_back(std::vector<TString>(1, "Wjets"));
-  vecMCColor.push_back(kGreen - 2);
-  vecMCtitle.push_back("W+Jets");
   // single top
   vecMCName.push_back(std::vector<TString>(1, "SingleTop"));
   vecMCColor.push_back(kMagenta);
@@ -148,8 +143,8 @@ int main(int argc, char** argv)
   cpHR.push_back(hr_cp_ytt);
   cpVar.push_back("ytt");
   
-  // *** TOP-11-013 Fig. 4 ***
-  // (be aware that in the paper plots for pT(top) and rapidity(top) 
+  // *** TOP-12-028 Fig. 4 ***
+  // (be aware that in the paper plots for pT(top) and rapidity(top)
   // contains both top and antitop quantities, while here only top is plotted)
   TCanvas* c_cp[4];
   for(int ch = 0; ch < 4; ch++)
@@ -179,12 +174,12 @@ int main(int argc, char** argv)
         if(s > 0)
           vecHMC.push_back(new TH1D(*vecHMC[s - 1]));
         // open ROOT file, read needed histogram
-        TFile* f = TFile::Open(TString::Format("%s/mc%sReco-c%d.root", baseDir.Data(), vecMCName[s][0].Data(), ch));        
+        TFile* f = TFile::Open(TString::Format("%s/mc%sReco-c%d.root", baseDir.Data(), vecMCName[s][0].Data(), ch));
         TH1D* h = (TH1D*)f->Get(TString::Format("h_%s", var.Data()));
         // loop over subsamples
         for(int ss = 1; ss < vecMCName[s].size(); ss++)
         {
-          TFile* f = TFile::Open(TString::Format("%s/mc%sReco-c%d.root", baseDir.Data(), vecMCName[s][ss].Data(), ch));        
+          TFile* f = TFile::Open(TString::Format("%s/mc%sReco-c%d.root", baseDir.Data(), vecMCName[s][ss].Data(), ch));
           TH1D* hh = (TH1D*)f->Get(TString::Format("h_%s", var.Data()));
           // plotted histograms are cumulative: each next one = previous one + current one
           h->Add(hh);
@@ -242,21 +237,21 @@ int main(int argc, char** argv)
   // save plots
   for(int ch = 1; ch < 4; ch++)
   {
-    // (channel code is: c1 ee, c2 mumu, c3 emu) 
+    // (channel code is: c1 ee, c2 mumu, c3 emu)
     c_cp[ch]->SaveAs(TString::Format("%s/cp-c%d.eps", plotDir.Data(), ch));
     c_cp[ch]->SaveAs(TString::Format("%s/cp-c%d.pdf", plotDir.Data(), ch));
   }
   c_cp[0]->SaveAs(TString::Format("%s/cp.eps", plotDir.Data()));
   c_cp[0]->SaveAs(TString::Format("%s/cp.pdf", plotDir.Data()));
   //
-  // be aware: there are certainly memory leaks (not removing 
-  // dynamically allocated objects), although it does not matter here, 
+  // be aware: there are certainly memory leaks (not removing
+  // dynamically allocated objects), although it does not matter here,
   // all memory is free when execution finished
   //
   
 
   // *** make cross sections ***
-  // helper object to prepare all input for cross section plotting 
+  // helper object to prepare all input for cross section plotting
   // (see plots.h for description)
   ZPlotCSInput csIn;
   csIn.Norm = true;
@@ -323,7 +318,7 @@ int main(int argc, char** argv)
   csIn.VecHR.push_back(hr_cs_mtt);
   csIn.VecVar.push_back("mtt");
 
-  // *** TOP-11-013, Fig. 10, and the total x-section from TOP-13-004 ***
+  // *** TOP-12-028, Figs. 12 and 14, and the total x-section from TOP-13-004 ***
   // (see plots.h for description)
   PlotCS(csIn);
 

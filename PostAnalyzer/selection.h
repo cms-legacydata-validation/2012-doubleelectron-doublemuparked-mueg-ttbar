@@ -28,8 +28,8 @@ bool SelectEl(const ZTree* preselTree, const int el)
   // require |eta(e)| > 2.4
   if(TMath::Abs(preselTree->elEta[el]) > 2.4)
     return false;
-  // require isolation (delta_R = 0.3) > 0.17
-  if(preselTree->elIso03[el] > 0.17)
+  // require isolation (delta_R = 0.3) > 0.15
+  if(preselTree->elIso03[el] > 0.15)
     return false;
   // require no missing hits
   if(preselTree->elMissHits[el] > 0)
@@ -55,8 +55,8 @@ bool SelectMu(const ZTree* preselTree, const int mu)
   // require |eta(mu)| > 2.4
   if(TMath::Abs(preselTree->muEta[mu]) > 2.4)
     return false;
-  // require isolation (delta_R = 0.3) > 0.20
-  if(preselTree->muIso03[mu] > 0.20)
+  // require isolation (delta_R = 0.3) > 0.15
+  if(preselTree->muIso03[mu] > 0.15)
     return false;
   // require at least 11 tracker hits and at least 1 pixel hit
   if(preselTree->muHitsValid[mu] < 12 || preselTree->muHitsPixel[mu] < 2)
@@ -99,9 +99,9 @@ void SelectDilepEMu(const ZTree* preselTree, TLorentzVector& vecLepM, TLorentzVe
         continue;
       TLorentzVector thisMu;
       thisMu.SetPtEtaPhiM(TMath::Abs(preselTree->muPt[mu]), preselTree->muEta[mu], preselTree->muPhi[mu], massMu);
-      // require dilepton mass below 12 GeV
+      // require dilepton mass greater than 20 GeV
       TLorentzVector vecDiLep = thisEl + thisMu;
-      if(vecDiLep.M() < 12.0)
+      if(vecDiLep.M() < 20.0)
         continue;
       // select pair with highest transverse momentum
       double sumPt = thisMu.Pt() + thisEl.Pt();
@@ -145,9 +145,9 @@ void SelectDilepEE(const ZTree* preselTree, TLorentzVector& vecLepM, TLorentzVec
         continue;
       TLorentzVector thisEl2;
       thisEl2.SetPtEtaPhiM(TMath::Abs(preselTree->elPt[el2]), preselTree->elEta[el2], preselTree->elPhi[el2], massEl);
-      // require dilepton mass below 12 GeV
+      // require dilepton mass greater than 20 GeV
       TLorentzVector vecDiLep = thisEl1 + thisEl2;
-      if(vecDiLep.M() < 12.0)
+      if(vecDiLep.M() < 20.0)
         continue;
       // this is additional invariant mass requirement for ee and mumu
       // (to supress Drell-Yan background)
@@ -195,9 +195,9 @@ void SelectDilepMuMu(const ZTree* preselTree, TLorentzVector& vecLepM, TLorentzV
         continue;
       TLorentzVector thisMu2;
       thisMu2.SetPtEtaPhiM(TMath::Abs(preselTree->muPt[mu2]), preselTree->muEta[mu2], preselTree->muPhi[mu2], massMu);
-      // require dilepton mass below 12 GeV
+      // require dilepton mass greater than 20 GeV
       TLorentzVector vecDiLep = thisMu1 + thisMu2;
-      if(vecDiLep.M() < 12.0)
+      if(vecDiLep.M() < 20.0)
         continue;
       // this is additional invariant mass requirement for ee and mumu
       // (to supress Drell-Yan background)

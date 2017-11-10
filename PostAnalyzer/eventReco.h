@@ -119,7 +119,7 @@ void FillHistos(std::vector<ZVarHisto>& VecVarHisto, double w, TLorentzVector* t
       histo->Fill(vecLepM->Pt(), w);
       histo->Fill(vecLepP->Pt(), w);
     }
-    // uknown (not implemented) variable
+    // unknown (not implemented) variable
     // (you can implement more variables here if needed)
     else
     {
@@ -200,7 +200,7 @@ void eventreco(ZEventRecoInput in)
   // steering
   // b-tagging discriminator for Combined Secondary Vertex Loose 
   // (consult https://twiki.cern.ch/twiki/bin/view/CMSPublic/BtagRecommendation2011OpenData)
-  const double bTagDiscrL = 0.244; 
+  const double bTagDiscrL = 0.244;
   // directory for output ROOT files with histograms
   TString outDir = gHistDir; 
 
@@ -286,9 +286,9 @@ void eventreco(ZEventRecoInput in)
     // *****************************************
     if(in.Channel == 3)
     {
-      // trigger: 12th to 17th bits
+      // trigger: 4th to 5th bits
       // (accept the event if at least one needed trigger bit is fired) 
-      for(int bit = 12; bit < 17; bit++)
+      for(int bit = 4; bit < 6; bit++)
         if((preselTree->Triggers >> bit) & 1)
         {
           trig = true;
@@ -303,16 +303,16 @@ void eventreco(ZEventRecoInput in)
     // *****************************************
     if(in.Channel == 1)
     {
-      // trigger: 6th to 11th bits
-      for(int bit = 6; bit < 11; bit++)
+      // trigger: 2nd to 3rd bits
+      for(int bit = 2; bit < 4; bit++)
         if((preselTree->Triggers >> bit) & 1)
         {
           trig = true;
           break;
         }
       double met = TMath::Sqrt(TMath::Power(preselTree->metPx, 2.0) + TMath::Power(preselTree->metPy, 2.0));
-      // additinal requirement on the missing transverse energy
-      if(trig && met > 30.0)
+      // additional requirement on the missing transverse energy
+      if(trig && met > 40.0)
         SelectDilepEE(preselTree, vecLepM, vecLepP, maxPtDiLep);
     }
     // *****************************************
@@ -320,16 +320,16 @@ void eventreco(ZEventRecoInput in)
     // *****************************************
     if(in.Channel == 2)
     {
-      // trigger: 0th to 5th bits
-      for(int bit = 0; bit < 5; bit++)
+      // trigger: 0th to 1st bits
+      for(int bit = 0; bit < 2; bit++)
         if((preselTree->Triggers >> bit) & 1)
         {
           trig = true;
           break;
         }
       double met = TMath::Sqrt(TMath::Power(preselTree->metPx, 2.0) + TMath::Power(preselTree->metPy, 2.0));
-      // additinal requirement on the missing transverse energy
-      if(trig && met > 30.0)
+      // additional requirement on the missing transverse energy
+      if(trig && met > 40.0)
         SelectDilepMuMu(preselTree, vecLepM, vecLepP, maxPtDiLep);
     }
     // check if there is a dilepton pair found, otherwise skip the event

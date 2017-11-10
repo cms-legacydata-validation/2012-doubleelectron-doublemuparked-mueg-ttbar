@@ -62,7 +62,7 @@ class ZPlotCSInput
     bool Paper;
 };
 
-// routine to get x-section rfom TOP-11-013 (they are hardcoded inside)
+// routine to get x-section rfom TOP-12-028 (they are hardcoded inside)
 // Arguments:
 //   const TString& var: variable name (input)
 //   TGraphAsymmErrors* gstat: produced graph with statistical uncertainties (output)
@@ -72,33 +72,33 @@ void GetPaperCS(const TString& var, TGraphAsymmErrors* gstat, TGraphAsymmErrors*
   double *sig, *stat, *syst;
   if(var == "ptt")
   {
-    sig = new double[5] {5.10e-3,6.26e-3,2.96e-3,0.70e-3,0.12e-3};
-    stat = new double[5] {2.2    ,2.6    ,2.6    ,3.5    ,7.5    };
-    syst = new double[5] {5.6    ,3.9    ,4.9    ,6.2    ,5.4    };
+    sig = new double[5]  {4.33e-3,6.40e-3,3.08e-3,8.62e-4,1.88e-4};
+    stat = new double[5] {1.1   ,0.9    ,1.0    ,1.3    ,2.7    };
+    syst = new double[5] {2.3   ,1.4    ,2.1    ,3.6    ,7.4    };
   }
   if(var == "yt")
   {
-    sig = new double[8] {0.091,0.255,0.302,0.351,0.371,0.306,0.241,0.090};
-    stat = new double[8] {4.1,3.1,3.3,3.2,3.2,3.4,3.3,4.0};
-    syst = new double[8] {6.8,4.9,4.0,3.8,3.8,4.0,4.9,6.8};
+    sig = new double[8]  {0.0763,0.197,0.282,0.335,0.328,0.285,0.203,0.074};
+    stat = new double[8] {2.0   ,1.0  ,1.1  ,1.0  ,1.0  ,1.1  ,1.1  ,2.0  };
+    syst = new double[8] {5.3   ,1.5  ,1.5  ,1.5  ,1.9  ,1.1  ,1.1  ,5.3  };
   }
   if(var == "ytt")
   {
-    sig = new double[6] {0.03,0.219,0.418,0.393,0.218,0.04};
-    stat = new double[6] {13.7,3.1,2.4,2.5,3.2,10.4};
-    syst = new double[6] {14.7,4.4,3.6,3.6,4.4,14.7};
+    sig = new double[8]  {0.0471,0.182,0.309,0.418,0.409,0.315,0.179,0.0459};
+    stat = new double[8] {4.0,   1.8,  1.4,  1.2,  1.2,  1.5,  1.8,  4.0};
+    syst = new double[8] {6.6,   1.5,  1.5,  1.7,  1.2,  1.3,  1.8,  6.0};
   }
   if(var == "pttt")
   {
-    sig = new double[4] {1.6e-2,0.97e-2,0.32e-2,0.05e-2};
-    stat = new double[4] {2.9,2.1,2.5,3.7};
-    syst = new double[4] {24.9,10.7,13.2,6.9};
+    sig = new double[4]  {1.43e-2,6.90e-3,1.91e-3,3.47e-4};
+    stat = new double[4] {0.8    ,1.0    ,1.1    ,2.1};
+    syst = new double[4] {6.1    ,4.7    ,5.4    ,4.7};
   }
   if(var == "mtt")
   {
-    sig = new double[8] {0.0,5.26e-3,4.58e-3,2.46e-3,1.07e-3,0.39e-3,0.08e-3,0.01e-3};
-    stat = new double[8] {0.0,5.4,3.8,4.9,6.1,6.9,13.3,22.4};
-    syst = new double[8] {0.0,10.4,4.1,7.6,3.9,11.4,27.0,43.6};
+    sig = new double[6]  {4.14e-3,4.50e-3,1.95e-3,5.25e-4,1.00e-4,7.28e-6};
+    stat = new double[6] {3.0    ,1.7    ,1.8    ,2.8    ,3.7    ,14.4};
+    syst = new double[6] {8.6    ,5.3    ,2.9    ,3.2    ,7.3    ,28.2};
   }
   for(int p = 0; p < gstat->GetN(); p++)
   {
@@ -241,7 +241,7 @@ void PlotCS(const ZPlotCSInput& in)
       GetPaperCS(var, gstat, gsyst);
       gstat->Draw("p0");
       gsyst->Draw("pz0");
-      leg->AddEntry(gstat, "CMS-TOP-11-013", "pe");
+      leg->AddEntry(gstat, "CMS-TOP-12-028", "pe");
     }
     leg->Draw();
     in.VecHR[v]->Draw("axis same");
