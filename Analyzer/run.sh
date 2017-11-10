@@ -23,16 +23,14 @@
 # For Monte Carlo (MC) set mc = 1 below, for signal MC also set gen = 1
 #
 # Data
-INPUTLIST='data/CMS_Run2012B_MuEG_AOD_22Jan2013-v1-all_file_index.txt'
-#INPUTLIST='data/CMS_Run2012B_DoubleMuParked_AOD_22Jan2013-v1-all_file_index.txt'
-#INPUTLIST='data/CMS_Run2012B_DoubleElectron_AOD_22Jan2013-v1-all_file_index.txt'
+INPUTLIST='data/CMS_Run2012BC_MuEG_AOD_22Jan2013-v1-all_file_index.txt'
+#INPUTLIST='data/CMS_Run2012BC_DoubleMuParked_AOD_22Jan2013-v1-all_file_index.txt'
+#INPUTLIST='data/CMS_Run2012BC_DoubleElectron_AOD_22Jan2013-v1-all_file_index.txt'
 #
 # MC ttbar (signal and 'ttbar other' background) - most time consuming!
 #INPUTLIST='TTJets_MSDecays_central_TuneZ2star_8TeV-madgraph-tauola/CMS_MonteCarlo2012_Summer12_DR53X_TTJets_MSDecays_central_TuneZ2star_8TeV-madgraph-tauola_AODSIM_PU_S10_START53_V19-v1-all_file_index.txt'
 #
 # MC single t (background)
-#
-# MC Wjets (background)
 #
 # MC Drell-Yan (background)
 #INPUTLIST='mc/DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball/CMS_MonteCarlo2012_Summer12_DR53X_DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball_AODSIM_PU_RD1_START53_V7N-v1-all_file_index.txt'
@@ -122,25 +120,27 @@ if [ 1 -eq 1 ]; then
   fi
   runSample=$1 # 1 data em, 2 data mm, 3 ee, 4 signal MC, 5 background MC DY
   if [ ${runSample} -eq 1 ]; then
-    # 13525363 events
-    INPUTLIST='data/CMS_Run2012C_MuEG_AOD_22Jan2013-v1-all_file_index.txt'
-    OUTPUTDIR='ntuples-data/MuEG-RunC'
+    # 13525363+ events
+    INPUTLIST='data/CMS_Run2012BC_MuEG_AOD_22Jan2013-v1-all_file_index.txt'
+    OUTPUTDIR='ntuples-data/MuEG'
     jobName='tt-em-'
     reco=1
     gen=0
     mc=0
     NP=200
   elif [ ${runSample} -eq 2 ]; then
-    INPUTLIST='data/CMS_Run2012C_DoubleMuParked_AOD_22Jan2013-v1-all_file_index.txt'
-    OUTPUTDIR='ntuples-data/DoubleMuParked-RunC'
+    # + event
+    INPUTLIST='data/CMS_Run2012BC_DoubleMuParked_AOD_22Jan2013-v1-all_file_index.txt'
+    OUTPUTDIR='ntuples-data/DoubleMuParked'
     jobName='tt-mm-'
     reco=1
     gen=0
     mc=0
     NP=400
   elif [ ${runSample} -eq 3 ]; then
-    INPUTLIST='data/CMS_Run2012C_DoubleElectron_AOD_22Jan2013-v1-all_file_index.txt'
-    OUTPUTDIR='ntuples-data/DoubleElectron-RunC'
+    # + event
+    INPUTLIST='data/CMS_Run2012BC_DoubleElectron_AOD_22Jan2013-v1-all_file_index.txt'
+    OUTPUTDIR='ntuples-data/DoubleElectron'
     jobName='tt-ee-'
     reco=1
     gen=0
