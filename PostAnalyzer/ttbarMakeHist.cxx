@@ -25,9 +25,9 @@ int main(int argc, char** argv)
   //
   // flags what to run
   bool flagData    = 1; // if 1, data will be processed
-  bool flagMCsig   = 0; // if 1, signal MC (dileptonic decay channel) will be processed
+  bool flagMCsig   = 1; // if 1, signal MC (dileptonic decay channel) will be processed
   bool flagMCstop  = 0; // if 1, MC single top (background) will be processed
-  bool flagMCdy    = 0; // if 1, MC Drell-Yan (background) will be processed
+  bool flagMCdy    = 1; // if 1, MC Drell-Yan (background) will be processed
   //
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   //
@@ -69,8 +69,8 @@ int main(int argc, char** argv)
     vecVHGen.push_back(ZVarHisto("ytt", new TH1D("h_ytt_cs", "y ttbar", 8, bins)));
   }
   {
-    double bins[] = {340.,380.,470.,620.,820.,1100.,1600.};
-    vecVHGen.push_back(ZVarHisto("mtt", new TH1D("h_mtt_cs", "M ttbar", 6, bins)));
+    double bins[] = {0.,340.,380.,470.,620.,820.,1100.,1600.};
+    vecVHGen.push_back(ZVarHisto("mtt", new TH1D("h_mtt_cs", "M ttbar", 7, bins)));
   }
 
   // for reconstruction level the same binning is needed
@@ -82,7 +82,7 @@ int main(int argc, char** argv)
   // loop over decay channels (ch = 1 ee, ch = 2 mumu, ch = 3 emu)
   for(int ch = 1; ch <= 3; ch++)
   {
-    if(ch != 3) continue; // if you need only emu (for test purpose e.g.)
+    //if(ch != 3) continue; // if you need only emu (for test purpose e.g.)
     // 
     // below similar pieces of code come for data and several MC samples, 
     // detailed description is given for the first piece, while later on 
@@ -102,11 +102,20 @@ int main(int argc, char** argv)
       in.VecVarHisto = vecVH; // need to copy it, because further will be changed
       // input ROOT ntuples
       if(ch == 1) // ee
+      {
         in.AddToChain(dataDir + "/DoubleElectron/*.root");
+        in.AddToChain(dataDir + "/DoubleElectron-RunC/*.root");
+      }
       else if(ch == 2) // mumu
+      {
         in.AddToChain(dataDir + "/DoubleMuParked/*.root");
+        in.AddToChain(dataDir + "/DoubleMuParked-RunC/*.root");
+      }
       else if(ch == 3) // emu
+      {
         in.AddToChain(dataDir + "/MuEG/*.root");
+        in.AddToChain(dataDir + "/MuEG-RunC/*.root");
+      }
       // main part: event reconstruction call
       eventreco(in);
     }
@@ -126,15 +135,15 @@ int main(int argc, char** argv)
     // Runs -> GenRunInfoProduct_generator__SIM. -> GenRunInfoProduct_generator__SIM.obj -> InternalXSec -> value_
     // (nevertheless sigma_MC cancels)
     //
-    // number of events: XXX
+    // number of events: 62131965
     // MC cross section theory: 245.8
-    // weight: 9850.0 / XXX * 245.8 = 0.007529
+    // weight: 9850.0 / 62131965 * 245.8 = 0.038967543
     if(flagMCsig)
     {
       // MC signal reco level
       ZEventRecoInput in;
       //in.MaxNEvents = 1000;
-      in.Weight = 0.007529; // weight (see above)
+      in.Weight = 0.038967543; // weight (see above)
       in.Name = "mcSigReco";
       in.Type = 2;
       in.Channel = ch;
@@ -175,9 +184,9 @@ int main(int argc, char** argv)
     // **************** MC DY ******************
     // *****************************************
     // only high mass DY sample is included
-    // Events: XXX
+    // Events: 30458871
     // MC cross section theory: 3503.71 (multiplied by Z -> ll branching ratio)
-    // weight: 9850.0 / XXX * 3503.71 * 0.1 = 0.02093
+    // weight: 9850.0 / 30458871 * 3503.71 = 1.13305393
     if(flagMCdy)
     {
       ZEventRecoInput in;
@@ -186,7 +195,7 @@ int main(int argc, char** argv)
       in.Channel = ch;
       in.VecVarHisto = vecVH;
       in.Name = "mcDYhmReco";
-      in.Weight = 0.2093;
+      in.Weight = 1.13305393;
       in.ClearChain();
       in.AddToChain(mcDir + "/DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball/*.root");
       eventreco(in);

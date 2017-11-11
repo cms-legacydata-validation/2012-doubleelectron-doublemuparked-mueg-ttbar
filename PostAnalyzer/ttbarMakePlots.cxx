@@ -84,8 +84,7 @@ int main(int argc, char** argv)
   
   // MC samples for control plots
   // (does not matter which are signal and which are background);
-  // each sample can contain multiple subsamples (container of containers,
-  // e.g. this is needed to combine in one entry DY low mass and high mass)
+  // each sample can contain multiple subsamples (container of containers)
   std::vector<std::vector<TString> > vecMCName; // names (must be consistent with those in ttbarMakeHist.cxx)
   std::vector<int> vecMCColor; // color codes
   std::vector<TString> vecMCtitle; // titles (to be plotted in the legend)
@@ -97,9 +96,9 @@ int main(int argc, char** argv)
   vecMCColor.push_back(kBlue);
   vecMCtitle.push_back("Z / #gamma*");
   // single top
-  vecMCName.push_back(std::vector<TString>(1, "SingleTop"));
-  vecMCColor.push_back(kMagenta);
-  vecMCtitle.push_back("Single Top");
+  //vecMCName.push_back(std::vector<TString>(1, "SingleTop"));
+  //vecMCColor.push_back(kMagenta);
+  //vecMCtitle.push_back("Single Top");
   // ttbar other
   vecMCName.push_back(std::vector<TString>(1, "SigOther"));
   vecMCColor.push_back(kRed - 7);
@@ -115,28 +114,28 @@ int main(int argc, char** argv)
   // container of variable names
   std::vector<TString> cpVar;
   // pT(top)
-  TH2F* hr_cp_ptt = new TH2F("hr_cp_ptt", "", 1, 0, 400, 1, 0, 1000.);
+  TH2F* hr_cp_ptt = new TH2F("hr_cp_ptt", "", 1, 0, 400, 1, 0, 5000.);
   hr_cp_ptt->GetXaxis()->SetTitle("p_{T}(t) [GeV]");
   hr_cp_ptt->GetYaxis()->SetTitle("Top quarks / 20 GeV");
   SetCPHRange(hr_cp_ptt);
   cpHR.push_back(hr_cp_ptt);
   cpVar.push_back("ptt");
   // pT(ttbar), ttbar = top + antitop
-  TH2F* hr_cp_pttt = new TH2F("hr_cp_ptt", "", 1, 0, 300, 1, 0, 1000.);
+  TH2F* hr_cp_pttt = new TH2F("hr_cp_pttt", "", 1, 0, 300, 1, 0, 10000.);
   hr_cp_pttt->GetXaxis()->SetTitle("p_{T}(t#bar{t}) [GeV]");
   hr_cp_pttt->GetYaxis()->SetTitle("Top quarks / 20 GeV");
   SetCPHRange(hr_cp_pttt);
   cpHR.push_back(hr_cp_pttt);
   cpVar.push_back("pttt");
   // rapidity(top)
-  TH2F* hr_cp_yt = new TH2F("hr_cp_yt", "", 1, -2.6, 2.6, 1, 0, 800.);
+  TH2F* hr_cp_yt = new TH2F("hr_cp_yt", "", 1, -2.6, 2.6, 1, 0, 5000.);
   hr_cp_yt->GetXaxis()->SetTitle("y(t)");
   hr_cp_yt->GetYaxis()->SetTitle("Top quarks / 0.2");
   SetCPHRange(hr_cp_yt);
   cpHR.push_back(hr_cp_yt);
   cpVar.push_back("yt");
   // rapidity(ttbar)
-  TH2F* hr_cp_ytt = new TH2F("hr_cp_ytt", "", 1, -2.6, 2.6, 1, 0, 1000.);
+  TH2F* hr_cp_ytt = new TH2F("hr_cp_ytt", "", 1, -2.6, 2.6, 1, 0, 5000.);
   hr_cp_ytt->GetXaxis()->SetTitle("y(t#bar{t})");
   hr_cp_ytt->GetYaxis()->SetTitle("Top quarks / 0.2");
   SetCPHRange(hr_cp_ytt);
@@ -277,10 +276,10 @@ int main(int argc, char** argv)
   csIn.VecTitle.push_back("e#mu");
   // MC background
   csIn.VecMCBackgr.push_back("SigOther");
-  csIn.VecMCBackgr.push_back("SingleTop");
-  csIn.VecMCBackgr.push_back("DYlm");
+  //csIn.VecMCBackgr.push_back("SingleTop");
+  //csIn.VecMCBackgr.push_back("DYlm");
   csIn.VecMCBackgr.push_back("DYhm");
-  csIn.VecMCBackgr.push_back("Wjets");
+  //csIn.VecMCBackgr.push_back("Wjets");
   // variables
   // pT(top)
   TH2F* hr_cs_ptt = new TH2F("hr_cs_ptt", "", 1, 0, 400, 1, 0, 0.01);
@@ -292,7 +291,7 @@ int main(int argc, char** argv)
   // rapidity(top)
   TH2F* hr_cs_yt = new TH2F("hr_cs_yt", "", 1, -2.5, 2.5, 1, 0, 0.7);
   hr_cs_yt->GetXaxis()->SetTitle("y(t)");
-  hr_cs_yt->GetYaxis()->SetTitle("#frac{1}{#sigma} #frac{d#sigma}{dt(t)}");
+  hr_cs_yt->GetYaxis()->SetTitle("#frac{1}{#sigma} #frac{d#sigma}{dy(t)}");
   SetCPHRange(hr_cs_yt);
   csIn.VecHR.push_back(hr_cs_yt);
   csIn.VecVar.push_back("yt");

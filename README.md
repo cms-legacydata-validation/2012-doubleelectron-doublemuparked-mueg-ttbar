@@ -35,9 +35,9 @@ cd PostAnalyzer
 
 ## Running the analysis
 Generally, the analysis steps are:
- * run Analyzer/run.sh (look inside first), this processes AOD files (CMS data stored at CERN server, several TB) and produces plain ROOT ntuple files (~3GB), takes ~ 2 weeks, extensive network access
+ * run Analyzer/run.sh (look inside first), this processes AOD files (CMS data stored at CERN server, several TB) and produces plain ROOT ntuple files (~5GB), takes ~ 3 weeks, extensive network access
  * move produced ntuples to PostAnalyzer directories (this step is manual on purpose, in order not to overwrite accidentally ntuples produced taking long time etc.)
- * run PostAnalyzer/ttbarMakeHist to process ROOT ntuples to create histograms (~5 mins)
+ * run PostAnalyzer/ttbarMakeHist to process ROOT ntuples to create histograms (~7 mins)
  * run PostAnalyzer/ttbarMakePlots to produce final plots from created histograms (few seconds)
 
 Further description of these steps you can find Analyzer/README.txt and Postanalyzer/README.txt

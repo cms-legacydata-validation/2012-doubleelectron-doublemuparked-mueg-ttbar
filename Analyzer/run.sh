@@ -120,48 +120,50 @@ if [ 1 -eq 1 ]; then
   fi
   runSample=$1 # 1 data em, 2 data mm, 3 ee, 4 signal MC, 5 background MC DY
   if [ ${runSample} -eq 1 ]; then
-    # 13525363+ events
+    # 13525363+20086016=33611379 events
     INPUTLIST='data/CMS_Run2012BC_MuEG_AOD_22Jan2013-v1-all_file_index.txt'
     OUTPUTDIR='ntuples-data/MuEG'
     jobName='tt-em-'
     reco=1
     gen=0
     mc=0
-    NP=200
+    NP=150
   elif [ ${runSample} -eq 2 ]; then
-    # + event
+    # 26084708+35455705=61540413 events
     INPUTLIST='data/CMS_Run2012BC_DoubleMuParked_AOD_22Jan2013-v1-all_file_index.txt'
     OUTPUTDIR='ntuples-data/DoubleMuParked'
     jobName='tt-mm-'
     reco=1
     gen=0
     mc=0
-    NP=400
+    NP=300
   elif [ ${runSample} -eq 3 ]; then
-    # + event
+    # 21474287+32537541=54011828 events
     INPUTLIST='data/CMS_Run2012BC_DoubleElectron_AOD_22Jan2013-v1-all_file_index.txt'
     OUTPUTDIR='ntuples-data/DoubleElectron'
     jobName='tt-ee-'
     reco=1
     gen=0
     mc=0
-    NP=300
+    NP=150
   elif [ ${runSample} -eq 4 ]; then
+    # 62131965 events
     INPUTLIST='mc/TTJets_MSDecays_central_TuneZ2star_8TeV-madgraph-tauola/CMS_MonteCarlo2012_Summer12_DR53X_TTJets_MSDecays_central_TuneZ2star_8TeV-madgraph-tauola_AODSIM_PU_S10_START53_V19-v1-all_file_index.txt'
     OUTPUTDIR='ntuples-mc/TTJets_MSDecays_central_TuneZ2star_8TeV-madgraph-tauola'
     jobName='tt-mg-'
     reco=1
     gen=1
     mc=1
-    NP=750
+    NP=999
   elif [ ${runSample} -eq 5 ]; then
+    # 30458871 events
     INPUTLIST='mc/DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball/CMS_MonteCarlo2012_Summer12_DR53X_DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball_AODSIM_PU_RD1_START53_V7N-v1-all_file_index.txt'
     OUTPUTDIR='ntuples-mc/DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball'
     jobName='tt-dy-'
     reco=1
     gen=0
     mc=1
-    NP=250
+    NP=200
   fi
 fi
 

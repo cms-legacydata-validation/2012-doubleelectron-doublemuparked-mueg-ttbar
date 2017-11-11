@@ -96,9 +96,9 @@ void GetPaperCS(const TString& var, TGraphAsymmErrors* gstat, TGraphAsymmErrors*
   }
   if(var == "mtt")
   {
-    sig = new double[6]  {4.14e-3,4.50e-3,1.95e-3,5.25e-4,1.00e-4,7.28e-6};
-    stat = new double[6] {3.0    ,1.7    ,1.8    ,2.8    ,3.7    ,14.4};
-    syst = new double[6] {8.6    ,5.3    ,2.9    ,3.2    ,7.3    ,28.2};
+    sig = new double[7]  {0.0, 4.14e-3,4.50e-3,1.95e-3,5.25e-4,1.00e-4,7.28e-6};
+    stat = new double[7] {0.0, 3.0    ,1.7    ,1.8    ,2.8    ,3.7    ,14.4};
+    syst = new double[7] {0.0, 8.6    ,5.3    ,2.9    ,3.2    ,7.3    ,28.2};
   }
   for(int p = 0; p < gstat->GetN(); p++)
   {
@@ -182,13 +182,13 @@ void PlotCS(const ZPlotCSInput& in)
       hcs->Divide(hacc);
       double cs, cserr;
       cs = hcs->IntegralAndError(0, hcs->GetNbinsX() + 1, cserr);
-      double br = 0.0115 * 2500.0; // branching ratio (ee, mumu) times luminosity
+      double br = 0.0115 * 9850.0; // branching ratio (ee, mumu) times luminosity
       if(ch == 3)
         br *= 2.0; // branching ratio 2 times larger for the emu channel
       // print calculated cross section
       // (channel code is: c1 ee, c2 mumu, c3 emu) 
       // print only x-section in the emu channel (most precise and the only available in the paper TOP-13-004)
-      if(ch == 3)
+      //if(ch == 3)
         printf("x-section c%d %s:  %.1f +- %.1f\n", ch, var.Data(), cs / br, cserr / br);
       if(in.Norm)
         hcs->Scale(1.0 / hcs->Integral(), "width");
@@ -208,7 +208,7 @@ void PlotCS(const ZPlotCSInput& in)
     hcombcs->Divide(hcombacc);
     double cs, cserr;
     cs = hcombcs->IntegralAndError(0, hcombcs->GetNbinsX() + 1, cserr);
-    double br = 0.046 * 2500.0;
+    double br = 0.046 * 9850.0;
     // the total x-section in the combined dilepton channel is calculated, 
     // but not plotted by default: no reference number in CMS papers
     //printf("x-section dilepton %s:  %.1f +- %.1f\n", var.Data(), cs / br, cserr / br, nsig / nreco * ngen / br);
