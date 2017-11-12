@@ -127,7 +127,7 @@ if [ 1 -eq 1 ]; then
     reco=1
     gen=0
     mc=0
-    NP=150
+    NP=300
   elif [ ${runSample} -eq 2 ]; then
     # 26084708+35455705=61540413 events
     INPUTLIST='data/CMS_Run2012BC_DoubleMuParked_AOD_22Jan2013-v1-all_file_index.txt'
@@ -136,7 +136,7 @@ if [ 1 -eq 1 ]; then
     reco=1
     gen=0
     mc=0
-    NP=300
+    NP=600
   elif [ ${runSample} -eq 3 ]; then
     # 21474287+32537541=54011828 events
     INPUTLIST='data/CMS_Run2012BC_DoubleElectron_AOD_22Jan2013-v1-all_file_index.txt'
@@ -145,7 +145,7 @@ if [ 1 -eq 1 ]; then
     reco=1
     gen=0
     mc=0
-    NP=150
+    NP=300
   elif [ ${runSample} -eq 4 ]; then
     # 62131965 events
     INPUTLIST='mc/TTJets_MSDecays_central_TuneZ2star_8TeV-madgraph-tauola/CMS_MonteCarlo2012_Summer12_DR53X_TTJets_MSDecays_central_TuneZ2star_8TeV-madgraph-tauola_AODSIM_PU_S10_START53_V19-v1-all_file_index.txt'
