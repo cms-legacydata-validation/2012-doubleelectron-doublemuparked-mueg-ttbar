@@ -13,9 +13,9 @@ import sys
 #
 # input file name
 # data, muon-electron sample
-#inFileTest = 'root://eospublic.cern.ch//eos/opendata/cms/Run2012B/MuEG/AOD/22Jan2013-v1/20000/00233284-C16C-E211-8D86-00266CFFBE88.root'
+inFileTest = 'root://eospublic.cern.ch//eos/opendata/cms/Run2012B/MuEG/AOD/22Jan2013-v1/20000/00233284-C16C-E211-8D86-00266CFFBE88.root'
 # signal MC
-inFileTest = 'root://eospublic.cern.ch//eos/opendata/cms/MonteCarlo2012/Summer12_DR53X/TTJets_MSDecays_central_TuneZ2star_8TeV-madgraph-tauola/AODSIM/PU_S10_START53_V19-v1/00000/0037BFA7-D943-E311-8FA3-00266CF9C018.root'
+#inFileTest = 'root://eospublic.cern.ch//eos/opendata/cms/MonteCarlo2012/Summer12_DR53X/TTJets_MSDecays_central_TuneZ2star_8TeV-madgraph-tauola/AODSIM/PU_S10_START53_V19-v1/00000/0037BFA7-D943-E311-8FA3-00266CF9C018.root'
 # for fast tests, you can copy input ROOT files to the local machine
 #
 # output file name
@@ -26,6 +26,9 @@ flag_reco = 1   # process reconstruction level
 flag_gen  = 1   # process generated level
 flag_mc   = 1   # 1 for mc, 0 for data
 #
+# number of events to be processed (-1 for all)
+maxEvents = cms.untracked.int32(-1)
+#
 # process passed arguments, if any
 #
 if len(sys.argv) < 4:
@@ -33,8 +36,9 @@ if len(sys.argv) < 4:
   inputList = inFileTest
   outFile = outFileTest
   flag_reco = 1
-  flag_gen  = 1
-  flag_mc   = 1
+  flag_gen  = 0
+  flag_mc   = 0
+  maxEvents = 100
   # do not stop execution at this point, run with default arguments
   #sys.exit("Wrong usage!")
 else:                 
@@ -92,7 +96,7 @@ process.MessageLogger.cerr.INFO = cms.untracked.PSet(limit = cms.untracked.int32
 process.options = cms.untracked.PSet( wantSummary = cms.untracked.bool(True) )
 #
 # Change this to a positive value to limit the number of processed events
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(maxEvents) )
 #
 # supply processor with input files
 if len(sys.argv) < 4:
