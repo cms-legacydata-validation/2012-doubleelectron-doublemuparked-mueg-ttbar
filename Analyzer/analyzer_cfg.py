@@ -13,7 +13,8 @@ import sys
 #
 # input file name
 # data, muon-electron sample
-inFileTest = 'root://eospublic.cern.ch//eos/opendata/cms/Run2012B/MuEG/AOD/22Jan2013-v1/20000/00233284-C16C-E211-8D86-00266CFFBE88.root'
+#inFileTest = 'root://eospublic.cern.ch//eos/opendata/cms/Run2012B/MuEG/AOD/22Jan2013-v1/20000/00233284-C16C-E211-8D86-00266CFFBE88.root'
+inFileTest = 'root://eospublic.cern.ch//eos/opendata/cms/Run2012C/MuEG/AOD/22Jan2013-v1/20000/00EB27CF-3568-E211-A685-AC162DACB208.root'
 # signal MC
 #inFileTest = 'root://eospublic.cern.ch//eos/opendata/cms/MonteCarlo2012/Summer12_DR53X/TTJets_MSDecays_central_TuneZ2star_8TeV-madgraph-tauola/AODSIM/PU_S10_START53_V19-v1/00000/0037BFA7-D943-E311-8FA3-00266CF9C018.root'
 # for fast tests, you can copy input ROOT files to the local machine
@@ -38,7 +39,7 @@ if len(sys.argv) < 4:
   flag_reco = 1
   flag_gen  = 0
   flag_mc   = 0
-  maxEvents = 100
+  maxEvents = 1000
   # do not stop execution at this point, run with default arguments
   #sys.exit("Wrong usage!")
 else:                 
@@ -66,16 +67,13 @@ process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 # global tag as described at http://opendata.cern.ch/getting-started/CMS?ln=en
 if flag_mc == 0:
 # DATA
-# Before should be done:
-#    ln -sf /cvmfs/cms-opendata-conddb.cern.ch/FT_53_LV5_AN1_RUNA FT_53_LV5_AN1
-#    ln -sf /cvmfs/cms-opendata-conddb.cern.ch/FT_53_LV5_AN1_RUNA.db FT_53_LV5_AN1_RUNA.db
-  process.GlobalTag.connect = cms.string('sqlite_file:/cvmfs/cms-opendata-conddb.cern.ch/FT_53_LV5_AN1_RUNA.db')
-  process.GlobalTag.globaltag = 'FT_53_LV5_AN1::All'
-  # 2012
   # Before should be done:
 #  ln -sf /cvmfs/cms-opendata-conddb.cern.ch/FT53_V21A_AN6 FT53_V21A_AN6
 #  ln -sf /cvmfs/cms-opendata-conddb.cern.ch/FT53_V21A_AN6.db FT53_V21A_AN6.db
-  process.GlobalTag.connect = cms.string('sqlite_file:/cvmfs/cms-opendata-conddb.cern.ch/FT53_V21A_AN6.db')
+  #process.GlobalTag.connect = cms.string('sqlite_file:/cvmfs/cms-opendata-conddb.cern.ch/FT53_V21A_AN6.db')
+  #process.GlobalTag.globaltag = 'FT53_V21A_AN6::All'
+  # 6.12.17
+  process.GlobalTag.connect = cms.string('sqlite_file:/cvmfs/cms-opendata-conddb.cern.ch/FT53_V21A_AN6_FULL.db')
   process.GlobalTag.globaltag = 'FT53_V21A_AN6::All'
 else:
   # MC

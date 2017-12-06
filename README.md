@@ -22,8 +22,8 @@ cmsenv
 git clone https://github.com/cms-opendata-validation/2012-doubleelectron-doublemuparked-mueg-ttbar.git
 scram b
 cd 2012-doubleelectron-doublemuparked-mueg-ttbar/Analyzer
-ln -sf /cvmfs/cms-opendata-conddb.cern.ch/FT_53_LV5_AN1_RUNA FT_53_LV5_AN1
-ln -sf /cvmfs/cms-opendata-conddb.cern.ch/START53_LV6A1 START53_LV6A1
+ln -sf /cvmfs/cms-opendata-conddb.cern.ch/FT53_V21A_AN6 FT53_V21A_AN6
+ln -sf /cvmfs/cms-opendata-conddb.cern.ch/START53_V27 START53_V27
 ```
 (no need to download data/MC input file lists and JSON: provided with the code)
 
