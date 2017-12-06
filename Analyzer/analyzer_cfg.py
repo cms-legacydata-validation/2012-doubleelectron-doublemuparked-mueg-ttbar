@@ -68,18 +68,16 @@ process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 if flag_mc == 0:
 # DATA
   # Before should be done:
-#  ln -sf /cvmfs/cms-opendata-conddb.cern.ch/FT53_V21A_AN6 FT53_V21A_AN6
-#  ln -sf /cvmfs/cms-opendata-conddb.cern.ch/FT53_V21A_AN6.db FT53_V21A_AN6.db
-  #process.GlobalTag.connect = cms.string('sqlite_file:/cvmfs/cms-opendata-conddb.cern.ch/FT53_V21A_AN6.db')
-  #process.GlobalTag.globaltag = 'FT53_V21A_AN6::All'
-  # 6.12.17
+  #ln -sf /cvmfs/cms-opendata-conddb.cern.ch/FT53_V21A_AN6_RUNC FT53_V21A_AN6
+  #ln -sf /cvmfs/cms-opendata-conddb.cern.ch/FT53_V21A_AN6_RUNC.db FT53_V21A_AN6_RUNC.db
+  #ln -sf /cvmfs/cms-opendata-conddb.cern.ch/FT53_V21A_AN6_RUNC FT53_V21A_AN6_RUNC
   process.GlobalTag.connect = cms.string('sqlite_file:/cvmfs/cms-opendata-conddb.cern.ch/FT53_V21A_AN6_FULL.db')
   process.GlobalTag.globaltag = 'FT53_V21A_AN6::All'
 else:
   # MC
   # Before should be done:
-# ln -sf /cvmfs/cms-opendata-conddb.cern.ch/START53_V27.db START53_V27.db
-# ln -sf /cvmfs/cms-opendata-conddb.cern.ch/START53_V27 START53_V27
+  #ln -sf /cvmfs/cms-opendata-conddb.cern.ch/START53_V27.db START53_V27.db
+  #ln -sf /cvmfs/cms-opendata-conddb.cern.ch/START53_V27 START53_V27
   process.GlobalTag.connect = cms.string('sqlite_file:/cvmfs/cms-opendata-conddb.cern.ch/START53_V27.db')
   process.GlobalTag.globaltag = 'START53_V27::All'
 #
