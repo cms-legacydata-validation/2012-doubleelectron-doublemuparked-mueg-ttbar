@@ -22,9 +22,9 @@ cmsenv
 git clone https://github.com/cms-opendata-validation/2012-doubleelectron-doublemuparked-mueg-ttbar.git
 scram b
 cd 2012-doubleelectron-doublemuparked-mueg-ttbar/Analyzer
-ln -sf /cvmfs/cms-opendata-conddb.cern.ch/FT53_V21A_AN6_RUNC FT53_V21A_AN6
-ln -sf /cvmfs/cms-opendata-conddb.cern.ch/FT53_V21A_AN6_RUNC.db FT53_V21A_AN6_RUNC.db
-ln -sf /cvmfs/cms-opendata-conddb.cern.ch/FT53_V21A_AN6_RUNC FT53_V21A_AN6_RUNC
+ln -sf /cvmfs/cms-opendata-conddb.cern.ch/FT53_V21A_AN6_FULL FT53_V21A_AN6
+ln -sf /cvmfs/cms-opendata-conddb.cern.ch/FT53_V21A_AN6_FULL.db FT53_V21A_AN6_FULL.db
+ln -sf /cvmfs/cms-opendata-conddb.cern.ch/FT53_V21A_AN6_FULL FT53_V21A_AN6_FULL
 ln -sf /cvmfs/cms-opendata-conddb.cern.ch/START53_V27.db START53_V27.db
 ln -sf /cvmfs/cms-opendata-conddb.cern.ch/START53_V27 START53_V27
 ```
