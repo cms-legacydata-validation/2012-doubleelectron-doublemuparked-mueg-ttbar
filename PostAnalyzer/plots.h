@@ -182,7 +182,7 @@ void PlotCS(const ZPlotCSInput& in)
       hcs->Divide(hacc);
       double cs, cserr;
       cs = hcs->IntegralAndError(0, hcs->GetNbinsX() + 1, cserr);
-      double br = 0.0115 * 9850.0; // branching ratio (ee, mumu) times luminosity
+      double br = 0.0115 * 11580.0; // branching ratio (ee, mumu) times luminosity
       if(ch == 3)
         br *= 2.0; // branching ratio 2 times larger for the emu channel
       // print calculated cross section
