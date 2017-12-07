@@ -13,8 +13,8 @@ import sys
 #
 # input file name
 # data, muon-electron sample
-#inFileTest = 'root://eospublic.cern.ch//eos/opendata/cms/Run2012B/MuEG/AOD/22Jan2013-v1/20000/00233284-C16C-E211-8D86-00266CFFBE88.root'
-inFileTest = 'root://eospublic.cern.ch//eos/opendata/cms/Run2012C/MuEG/AOD/22Jan2013-v1/20000/00EB27CF-3568-E211-A685-AC162DACB208.root'
+inFileTest = 'root://eospublic.cern.ch//eos/opendata/cms/Run2012B/MuEG/AOD/22Jan2013-v1/20000/00233284-C16C-E211-8D86-00266CFFBE88.root'
+#inFileTest = 'root://eospublic.cern.ch//eos/opendata/cms/Run2012C/MuEG/AOD/22Jan2013-v1/20000/00EB27CF-3568-E211-A685-AC162DACB208.root'
 # signal MC
 #inFileTest = 'root://eospublic.cern.ch//eos/opendata/cms/MonteCarlo2012/Summer12_DR53X/TTJets_MSDecays_central_TuneZ2star_8TeV-madgraph-tauola/AODSIM/PU_S10_START53_V19-v1/00000/0037BFA7-D943-E311-8FA3-00266CF9C018.root'
 # for fast tests, you can copy input ROOT files to the local machine
@@ -28,7 +28,7 @@ flag_gen  = 1   # process generated level
 flag_mc   = 1   # 1 for mc, 0 for data
 #
 # number of events to be processed (-1 for all)
-maxEvents = cms.untracked.int32(-1)
+maxEvents = -1
 #
 # process passed arguments, if any
 #
