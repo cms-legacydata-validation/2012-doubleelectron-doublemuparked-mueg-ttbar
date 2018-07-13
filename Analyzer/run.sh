@@ -23,7 +23,7 @@
 # For Monte Carlo (MC) set mc = 1 below, for signal MC also set gen = 1
 #
 # Data
-INPUTLIST='data/CMS_Run2012BC_MuEG_AOD_22Jan2013-v1-all_file_index.txt'
+#INPUTLIST='data/CMS_Run2012BC_MuEG_AOD_22Jan2013-v1-all_file_index.txt'
 #INPUTLIST='data/CMS_Run2012BC_DoubleMuParked_AOD_22Jan2013-v1-all_file_index.txt'
 #INPUTLIST='data/CMS_Run2012BC_DoubleElectron_AOD_22Jan2013-v1-all_file_index.txt'
 #
@@ -31,6 +31,8 @@ INPUTLIST='data/CMS_Run2012BC_MuEG_AOD_22Jan2013-v1-all_file_index.txt'
 #INPUTLIST='TTJets_MSDecays_central_TuneZ2star_8TeV-madgraph-tauola/CMS_MonteCarlo2012_Summer12_DR53X_TTJets_MSDecays_central_TuneZ2star_8TeV-madgraph-tauola_AODSIM_PU_S10_START53_V19-v1-all_file_index.txt'
 #
 # MC single t (background)
+INPUTLIST='mc/CMS_MonteCarlo2012_Summer12_DR53X_T_tW-channel-DR_TuneZ2star_8TeV-powheg-tauola_AODSIM_PU_S10_START53_V7A-v1_0000_file_index.txt'
+#INPUTLIST='mc/CMS_MonteCarlo2012_Summer12_DR53X_Tbar_tW-channel-DR_TuneZ2star_8TeV-powheg-tauola_AODSIM_PU_S10_START53_V7A-v1_0000_file_index.txt'
 #
 # MC Drell-Yan (background)
 #INPUTLIST='mc/DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball/CMS_MonteCarlo2012_Summer12_DR53X_DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball_AODSIM_PU_RD1_START53_V7N-v1-all_file_index.txt'
@@ -48,7 +50,7 @@ INPUTLIST='data/CMS_Run2012BC_MuEG_AOD_22Jan2013-v1-all_file_index.txt'
 # processed by PostAnalyzer after all (see PostAnalyzer/README.txt).
 #
 # Data
-OUTPUTDIR='ntuples-data/MuEG'
+#OUTPUTDIR='ntuples-data/MuEG'
 #OUTPUTDIR='ntuples-data/DoubleMuParked'
 #OUTPUTDIR='ntuples-data/DoubleElectron'
 #
@@ -61,8 +63,8 @@ OUTPUTDIR='ntuples-data/MuEG'
 #OUTPUTDIR='ntuples-mc/TTJets_TuneZ2_7TeV-madgraph-tauola/010003'
 #
 # MC single t (background)
-#OUTPUTDIR='ntuples-mc/T_TuneZ2_tW-channel-DR_7TeV-powheg-tauola'
-#OUTPUTDIR='ntuples-mc/Tbar_TuneZ2_tW-channel-DR_7TeV-powheg-tauola'
+OUTPUTDIR='ntuples-mc/T_tW-channel-DR_TuneZ2star_8TeV-powheg-tauola'
+#OUTPUTDIR='ntuples-mc/Tbar_tW-channel-DR_TuneZ2star_8TeV-powheg-tauola'
 #
 # MC Wjets (background)
 #OUTPUTDIR='ntuples-mc/WJetsToLNu_TuneZ2_7TeV-madgraph-tauola'
@@ -85,7 +87,7 @@ reco=1
 # not needed for background MC)
 gen=0
 # For MC set to 1
-mc=0
+mc=1
 ########################################################################
 
 ########################################################################
@@ -123,47 +125,65 @@ if [ 1 -eq 1 ]; then
     # 13525363+20086016=33611379 events
     INPUTLIST='data/CMS_Run2012BC_MuEG_AOD_22Jan2013-v1-all_file_index.txt'
     OUTPUTDIR='ntuples-data/MuEG'
-    jobName='tt-em-'
-    reco=1
-    gen=0
-    mc=0
-    NP=300
-  elif [ ${runSample} -eq 2 ]; then
-    # 26084708+35455705=61540413 events
-    INPUTLIST='data/CMS_Run2012BC_DoubleMuParked_AOD_22Jan2013-v1-all_file_index.txt'
-    OUTPUTDIR='ntuples-data/DoubleMuParked'
-    jobName='tt-mm-'
+    jobName='tt-em'
     reco=1
     gen=0
     mc=0
     NP=600
+  elif [ ${runSample} -eq 2 ]; then
+    # 26084708+35455705=61540413 events
+    INPUTLIST='data/CMS_Run2012BC_DoubleMuParked_AOD_22Jan2013-v1-all_file_index.txt'
+    OUTPUTDIR='ntuples-data/DoubleMuParked'
+    jobName='tt-mm'
+    reco=1
+    gen=0
+    mc=0
+    NP=1200
   elif [ ${runSample} -eq 3 ]; then
     # 21474287+32537541=54011828 events
     INPUTLIST='data/CMS_Run2012BC_DoubleElectron_AOD_22Jan2013-v1-all_file_index.txt'
     OUTPUTDIR='ntuples-data/DoubleElectron'
-    jobName='tt-ee-'
+    jobName='tt-ee'
     reco=1
     gen=0
     mc=0
-    NP=300
+    NP=600
   elif [ ${runSample} -eq 4 ]; then
     # 62131965 events
     INPUTLIST='mc/TTJets_MSDecays_central_TuneZ2star_8TeV-madgraph-tauola/CMS_MonteCarlo2012_Summer12_DR53X_TTJets_MSDecays_central_TuneZ2star_8TeV-madgraph-tauola_AODSIM_PU_S10_START53_V19-v1-all_file_index.txt'
     OUTPUTDIR='ntuples-mc/TTJets_MSDecays_central_TuneZ2star_8TeV-madgraph-tauola'
-    jobName='tt-mg-'
+    jobName='tt-mg'
     reco=1
     gen=1
     mc=1
-    NP=999
+    NP=1850
   elif [ ${runSample} -eq 5 ]; then
     # 30458871 events
     INPUTLIST='mc/DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball/CMS_MonteCarlo2012_Summer12_DR53X_DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball_AODSIM_PU_RD1_START53_V7N-v1-all_file_index.txt'
     OUTPUTDIR='ntuples-mc/DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball'
-    jobName='tt-dy-'
+    jobName='tt-dy'
     reco=1
     gen=0
     mc=1
-    NP=200
+    NP=500
+  elif [ ${runSample} -eq 6 ]; then
+    # 497658 events
+    INPUTLIST='mc/CMS_MonteCarlo2012_Summer12_DR53X_T_tW-channel-DR_TuneZ2star_8TeV-powheg-tauola_AODSIM_PU_S10_START53_V7A-v1_0000_file_index.txt'
+    OUTPUTDIR='ntuples-mc/T_tW-channel-DR_TuneZ2star_8TeV-powheg-tauola'
+    jobName='tt-st'
+    reco=1
+    gen=0
+    mc=1
+    NP=58
+  elif [ ${runSample} -eq 7 ]; then
+    # 493460 events
+    INPUTLIST='mc/CMS_MonteCarlo2012_Summer12_DR53X_Tbar_tW-channel-DR_TuneZ2star_8TeV-powheg-tauola_AODSIM_PU_S10_START53_V7A-v1_0000_file_index.txt'
+    OUTPUTDIR='ntuples-mc/Tbar_tW-channel-DR_TuneZ2star_8TeV-powheg-tauola'
+    jobName='tt-stbar'
+    reco=1
+    gen=0
+    mc=1
+    NP=54
   fi
 fi
 
@@ -202,7 +222,11 @@ do
   #
   # optionally submit jobs to cluster (if running not on VM): modify for your environment
   #
-  submit -N ${jobName}${p} -q short.q -l h_vmem=1.99G "${command} >& ${OUTPUTDIR}/log${outrootsuffix}_${p}.txt"
+  # SGE cluster (obsolete)
+  #submit -N ${jobName}'-'${p} -q short.q -l h_vmem=1.99G "${command} >& ${OUTPUTDIR}/log${outrootsuffix}_${p}.txt"
+  # HTCondor cluster
+  #cs -n${jobName}'-'$p -t72000 "${command} >& ${OUTPUTDIR}/log${outrootsuffix}_${p}.txt"
+  cs -n${jobName}'-'$p "${command} >& ${OUTPUTDIR}/log${outrootsuffix}_${p}.txt"
 done
 ########################################################################
 

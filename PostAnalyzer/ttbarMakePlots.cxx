@@ -96,9 +96,9 @@ int main(int argc, char** argv)
   vecMCColor.push_back(kBlue);
   vecMCtitle.push_back("Z / #gamma*");
   // single top
-  //vecMCName.push_back(std::vector<TString>(1, "SingleTop"));
-  //vecMCColor.push_back(kMagenta);
-  //vecMCtitle.push_back("Single Top");
+  vecMCName.push_back(std::vector<TString>(1, "SingleTop"));
+  vecMCColor.push_back(kMagenta);
+  vecMCtitle.push_back("Single Top");
   // ttbar other
   vecMCName.push_back(std::vector<TString>(1, "SigOther"));
   vecMCColor.push_back(kRed - 7);
@@ -276,7 +276,7 @@ int main(int argc, char** argv)
   csIn.VecTitle.push_back("e#mu");
   // MC background
   csIn.VecMCBackgr.push_back("SigOther");
-  //csIn.VecMCBackgr.push_back("SingleTop");
+  csIn.VecMCBackgr.push_back("SingleTop");
   //csIn.VecMCBackgr.push_back("DYlm");
   csIn.VecMCBackgr.push_back("DYhm");
   //csIn.VecMCBackgr.push_back("Wjets");

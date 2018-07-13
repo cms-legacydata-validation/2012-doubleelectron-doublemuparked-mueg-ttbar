@@ -26,7 +26,7 @@ int main(int argc, char** argv)
   // flags what to run
   bool flagData    = 1; // if 1, data will be processed
   bool flagMCsig   = 1; // if 1, signal MC (dileptonic decay channel) will be processed
-  bool flagMCstop  = 0; // if 1, MC single top (background) will be processed
+  bool flagMCstop  = 1; // if 1, MC single top (background) will be processed
   bool flagMCdy    = 1; // if 1, MC Drell-Yan (background) will be processed
   //
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -166,18 +166,18 @@ int main(int argc, char** argv)
     // *****************************************
     // number of events: XXX
     // MC cross section theory: 11.1 (times factor 2 because there is top and antitop)
-    // weight: 9850.0 / XXX * 11.1 * 2 = 0.02544
+    // weight: 9850.0 / (497658 + 493460) * 11.1 * 2 = 0.2206
     if(flagMCstop)
     {
       ZEventRecoInput in;
       //in.MaxNEvents = 1000;
       in.Name = "mcSingleTopReco";
       in.Type = 4;
-      in.Weight = 0.02544;
+      in.Weight = 0.2206;
       in.Channel = ch;
       in.VecVarHisto = vecVH;
-      in.AddToChain(mcDir + "/Tbar_TuneZ2_tW-channel-DR_7TeV-powheg-tauola/*.root");
-      in.AddToChain(mcDir + "/T_TuneZ2_tW-channel-DR_7TeV-powheg-tauola/*.root");
+      in.AddToChain(mcDir + "/Tbar_tW-channel-DR_TuneZ2star_8TeV-powheg-tauola/*.root");
+      in.AddToChain(mcDir + "/T_tW-channel-DR_TuneZ2star_8TeV-powheg-tauola/*.root");
       eventreco(in);
     }
     // *****************************************
