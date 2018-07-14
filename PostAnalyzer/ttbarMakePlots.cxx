@@ -296,7 +296,7 @@ int main(int argc, char** argv)
   csIn.VecHR.push_back(hr_cs_yt);
   csIn.VecVar.push_back("yt");
   // pT(ttbar)
-  TH2F* hr_cs_pttt = new TH2F("hr_cs_pttt", "", 1, 0, 400, 1, 0, 0.025);
+  TH2F* hr_cs_pttt = new TH2F("hr_cs_pttt", "", 1, 0, 300, 1, 0, 0.025);
   hr_cs_pttt->GetXaxis()->SetTitle("p_{T}(t#bar{t}) [GeV]");
   hr_cs_pttt->GetYaxis()->SetTitle("#frac{1}{#sigma} #frac{d#sigma}{dp_{T}(t#bar{t})} [GeV^{-1}]");
   SetCPHRange(hr_cs_pttt);
@@ -310,7 +310,7 @@ int main(int argc, char** argv)
   csIn.VecHR.push_back(hr_cs_ytt);
   csIn.VecVar.push_back("ytt");
   // M(ttbar)
-  TH2F* hr_cs_mtt = new TH2F("hr_cs_mtt", "", 1, 345, 1600, 1, 1e-6, 0.06);
+  TH2F* hr_cs_mtt = new TH2F("hr_cs_mtt", "", 1, 340, 1600, 1, 1e-6, 0.06);
   hr_cs_mtt->GetXaxis()->SetTitle("M(t#bar{t}) [GeV]");
   hr_cs_mtt->GetYaxis()->SetTitle("#frac{1}{#sigma} #frac{d#sigma}{dM(t#bar{t})} [GeV^{-1}]");
   SetCPHRange(hr_cs_mtt);
