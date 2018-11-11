@@ -32,7 +32,10 @@ class ZVarHisto
   private:
     TH1D* zHisto; // histogram
     TString zVar; // variable name (see void FillHistos() fot its usage)
-  
+    TString zCutVar; // variable to apply extra cut (for double-differential cross sections)
+    double zCutMin; // minimum boundary of extra cut (for double-differential cross sections)
+    double zCutMax; // maximum boundary of extra cut (for double-differential cross sections)
+
   public:
     // constructor
     ZVarHisto(const TString& str, TH1D* h)
@@ -41,11 +44,24 @@ class ZVarHisto
       zVar = str;
     }
 
+    // constructor with extra cut
+    ZVarHisto(const TString& str, TH1D* h, const TString& cutVar, const double min, const double max)
+    {
+      zHisto = h;
+      zVar = str;
+      zCutVar = cutVar;
+      zCutMin = min;
+      zCutMax = max;
+    }
+
     // copy constructor
     ZVarHisto(const ZVarHisto& old)
     {
       zHisto = new TH1D(*(old.zHisto));
       zVar = old.zVar;
+      zCutVar = old.zCutVar;
+      zCutMin = old.zCutMin;
+      zCutMax = old.zCutMax;
     }
 
     // access histogram
@@ -53,6 +69,15 @@ class ZVarHisto
     
     // access variable name
     TString V() {return zVar;}
+
+    // access cut variable name
+    TString CutV() {return zCutVar;}
+
+    // access cut minimim value
+    double CutMin() {return zCutMin;}
+
+    // access cut maximim value
+    double CutMax() {return zCutMax;}
 };
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -75,6 +100,33 @@ void FillHistos(std::vector<ZVarHisto>& VecVarHisto, double w, TLorentzVector* t
   // loop over provided histograms to be filled
   for(int h = 0; h < VecVarHisto.size(); h++)
   {
+    // check if there is extra cut before filling histograms
+    TString cutVar = VecVarHisto[h].CutV();
+    double min = VecVarHisto[h].CutMin();
+    double max = VecVarHisto[h].CutMax();
+    if(cutVar != "")
+    {
+      // top rapidity, absolute value
+      if(cutVar == "ayt")
+      {
+        if(TMath::Abs(t->Rapidity()) < min || TMath::Abs(t->Rapidity()) > max)
+          continue;
+      }
+      // ttbar invariant mass
+      else if(cutVar == "mtt")
+      {
+        if(ttbar.M() < min || ttbar.M() > max)
+          continue;
+      }
+      // unknown (not implemented) cut variable
+      // (you can implement more cut variables here if needed)
+      else
+      {
+        printf("Error: unknown cut variable %s\n", cutVar.Data());
+        exit(1);
+        //continue;
+      }
+    }
     // retrieve variable name
     TString var = VecVarHisto[h].V();
     // retrieve histogram
@@ -98,6 +150,9 @@ void FillHistos(std::vector<ZVarHisto>& VecVarHisto, double w, TLorentzVector* t
     // top rapidity
     else if(var == "yt") 
       histo->Fill(t->Rapidity(), w);
+    // top rapidity, absolute value
+    else if(var == "ayt")
+      histo->Fill(TMath::Abs(t->Rapidity()), w);
     // antitop pT
     else if(var == "yat") 
       histo->Fill(tbar->Rapidity(), w);
@@ -110,9 +165,17 @@ void FillHistos(std::vector<ZVarHisto>& VecVarHisto, double w, TLorentzVector* t
     // ttbar rapidity
     else if(var == "ytt") 
       histo->Fill(ttbar.Rapidity(), w);
+    // ttbar rapidity, absolue value
+    else if(var == "aytt")
+      histo->Fill(TMath::Abs(ttbar.Rapidity()), w);
     // ttbar invariant mass
     else if(var == "mtt") 
       histo->Fill(ttbar.M(), w);
+    // delta phi between top and antitop
+    else if(var == "dphitt")
+      histo->Fill(TMath::Abs(t->DeltaPhi(*tbar)), w);
+    else if(var == "detatt")
+      histo->Fill(TMath::Abs(t->PseudoRapidity() - tbar->PseudoRapidity()), w);
     // lepton pT
     else if(var == "ptl") 
     {
@@ -399,7 +462,7 @@ void eventreco(ZEventRecoInput in)
   // (with and without kinematic reconstruction)
   if(in.Type == 2) 
   {
-    printf("nGen  : %ld\n", nGen);
+    printf("nGen  : %d\n", nGen);
     printf("C = %.2f%% (no KINRECO %.2f%%)\n", 100. * nReco / nGen, 100. * nSel / nGen);
   }
 

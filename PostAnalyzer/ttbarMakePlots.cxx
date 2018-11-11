@@ -321,5 +321,121 @@ int main(int argc, char** argv)
   // (see plots.h for description)
   PlotCS(csIn);
 
+  // *** make double-differential cross sections (TOP-14-013, Figs 2-7) ***
+  // helper object to prepare all input for cross section plotting
+  // (see plots.h for description)
+  //
+  // y(top),pT(top)
+  ZPlotCSInput cs2dIn = csIn;
+  // channels and background samples are set already
+  cs2dIn.ExtraFileName = "ytptt";
+  // update variables
+  cs2dIn.VecHR.clear();
+  cs2dIn.VecVar.clear();
+  std::vector<double> bins_yt = {0.,0.35,0.85,1.45,2.50};
+  for(int i = 0; i < bins_yt.size() - 1; i++)
+  {
+    cs2dIn.VecExtraTitle.push_back(TString::Format("%.2f < |y(t)| < %.2f", bins_yt[i], bins_yt[i + 1]));
+    cs2dIn.VecExtraNorm.push_back(1.0 / (bins_yt[i + 1] - bins_yt[i]));
+    TH2F* hr = new TH2F(TString::Format("hr_cs_ytptt%d", i + 1), "", 1, 0, 600, 1, 1e-5, 1e-2);
+    hr->GetXaxis()->SetTitle(TString::Format("p_{T}(t) [GeV]"));
+    hr->GetYaxis()->SetTitle("#frac{1}{#sigma} #frac{d#sigma}{dy(t)dp_{T}(t)} [GeV^{-1}]");
+    SetCPHRange(hr);
+    cs2dIn.VecHR.push_back(hr);
+    cs2dIn.VecVar.push_back(TString::Format("ytptt%d", i + 1));
+  }
+  PlotCS2D(cs2dIn);
+  //
+  // M(ttbar),y(top)
+  // channels and background samples are set already
+  cs2dIn.ExtraFileName = "mttyt";
+  // update variables
+  cs2dIn.VecHR.clear();
+  cs2dIn.VecVar.clear();
+  cs2dIn.VecExtraTitle.clear();
+  cs2dIn.VecExtraNorm.clear();
+  std::vector<double> bins_mtt = {340.,400.,500.,650.,1500.};
+  for(int i = 0; i < bins_mtt.size() - 1; i++)
+  {
+    cs2dIn.VecExtraTitle.push_back(TString::Format("%.0f < |M(t#bar{t})| < %.0f", bins_mtt[i], bins_mtt[i + 1]));
+    cs2dIn.VecExtraNorm.push_back(1.0 / (bins_mtt[i + 1] - bins_mtt[i]));
+    TH2F* hr = new TH2F(TString::Format("hr_cs_mttyt%d", i + 1), "", 1, 0, 2.5, 1, 5e-6, 1e-1);
+    hr->GetXaxis()->SetTitle(TString::Format("|y(t)|"));
+    hr->GetYaxis()->SetTitle("#frac{1}{#sigma} #frac{d#sigma}{dM(t#bar{t})dy(t)} [GeV^{-1}]");
+    SetCPHRange(hr);
+    cs2dIn.VecHR.push_back(hr);
+    cs2dIn.VecVar.push_back(TString::Format("mttyt%d", i + 1));
+  }
+  PlotCS2D(cs2dIn);
+  //
+  // M(ttbar),y(ttbar)
+  // channels and background samples are set already
+  cs2dIn.ExtraFileName = "mttytt";
+  // update variables
+  cs2dIn.VecHR.clear();
+  cs2dIn.VecVar.clear();
+  for(int i = 0; i < bins_mtt.size() - 1; i++)
+  {
+    TH2F* hr = new TH2F(TString::Format("hr_cs_mttyt%d", i + 1), "", 1, 0, 2.5, 1, 5e-6, 1e-1);
+    hr->GetXaxis()->SetTitle(TString::Format("|y(t#bar{t})|"));
+    hr->GetYaxis()->SetTitle("#frac{1}{#sigma} #frac{d#sigma}{dM(t#bar{t})dy(t#bar{t})} [GeV^{-1}]");
+    SetCPHRange(hr);
+    cs2dIn.VecHR.push_back(hr);
+    cs2dIn.VecVar.push_back(TString::Format("mttytt%d", i + 1));
+  }
+  PlotCS2D(cs2dIn);
+  //
+  // M(ttbar),delta_eta(t,tbar)
+  // channels and background samples are set already
+  cs2dIn.ExtraFileName = "mttdetatt";
+  // update variables
+  cs2dIn.VecHR.clear();
+  cs2dIn.VecVar.clear();
+  for(int i = 0; i < bins_mtt.size() - 1; i++)
+  {
+    TH2F* hr = new TH2F(TString::Format("hr_cs_mttdetatt%d", i + 1), "", 1, 0, 6.0, 1, 1e-5, 1e-2);
+    hr->GetXaxis()->SetTitle(TString::Format("#Delta#eta(t,#bar{t})"));
+    hr->GetYaxis()->SetTitle("#frac{1}{#sigma} #frac{d#sigma}{dM(t#bar{t})d#Delta#eta(t,#bar{t})} [GeV^{-1}]");
+    SetCPHRange(hr);
+    cs2dIn.VecHR.push_back(hr);
+    cs2dIn.VecVar.push_back(TString::Format("mttdetatt%d", i + 1));
+  }
+  PlotCS2D(cs2dIn);
+  //
+  // M(ttbar),delta_phi(t,tbar)
+  // channels and background samples are set already
+  cs2dIn.ExtraFileName = "mttdphitt";
+  // update variables
+  cs2dIn.VecHR.clear();
+  cs2dIn.VecVar.clear();
+  for(int i = 0; i < bins_mtt.size() - 1; i++)
+  {
+    TH2F* hr = new TH2F(TString::Format("hr_cs_mttdphitt%d", i + 1), "", 1, 0, TMath::Pi() + 0.00001, 1, 2e-6, 7e-1);
+    hr->GetXaxis()->SetTitle(TString::Format("#Delta#phi(t,#bar{t})"));
+    hr->GetYaxis()->SetTitle("#frac{1}{#sigma} #frac{d#sigma}{dM(t#bar{t})d#Delta#phi(t,#bar{t})} [GeV^{-1}]");
+    SetCPHRange(hr);
+    cs2dIn.VecHR.push_back(hr);
+    cs2dIn.VecVar.push_back(TString::Format("mttdphitt%d", i + 1));
+  }
+  PlotCS2D(cs2dIn);
+  //
+  // M(ttbar),pT(ttbar)
+  // channels and background samples are set already
+  cs2dIn.ExtraFileName = "mttpttt";
+  // update variables
+  cs2dIn.VecHR.clear();
+  cs2dIn.VecVar.clear();
+  for(int i = 0; i < bins_mtt.size() - 1; i++)
+  {
+    TH2F* hr = new TH2F(TString::Format("hr_cs_mttpttt%d", i + 1), "", 1, 0, 500.0, 1, 2e-8, 2e-4);
+    hr->GetXaxis()->SetTitle(TString::Format("p_{T}(t#bar{t})"));
+    hr->GetXaxis()->SetNdivisions(505);
+    hr->GetYaxis()->SetTitle("#frac{1}{#sigma} #frac{d#sigma}{dM(t#bar{t})dp_{T}(t#bar{t})} [GeV^{-2}]");
+    SetCPHRange(hr);
+    cs2dIn.VecHR.push_back(hr);
+    cs2dIn.VecVar.push_back(TString::Format("mttpttt%d", i + 1));
+  }
+  PlotCS2D(cs2dIn);
+
   return 0;
 }

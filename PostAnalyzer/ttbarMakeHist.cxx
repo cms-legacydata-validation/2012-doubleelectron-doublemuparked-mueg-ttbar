@@ -72,6 +72,49 @@ int main(int argc, char** argv)
     double bins[] = {0.,340.,380.,470.,620.,820.,1100.,1600.};
     vecVHGen.push_back(ZVarHisto("mtt", new TH1D("h_mtt_cs", "M ttbar", 7, bins)));
   }
+  // histograms and variables for double-differential cross sections
+  {
+    // [yt,ptt]
+    std::vector<double> bins_yt = {0.,0.35,0.85,1.45,2.50};
+    std::vector<double> bins_ptt = {0.,80,150.,250.,600.};
+    for(int i = 0; i < bins_yt.size() - 1; i++)
+      vecVHGen.push_back(ZVarHisto("ptt", new TH1D(TString::Format("h_ytptt%d_cs", i + 1), "y top, pT top", bins_ptt.size() - 1, &bins_ptt[0]), "ayt", bins_yt[i], bins_yt[i + 1]));
+  }
+  {
+    // [mtt,yt]
+    std::vector<double> bins_mtt = {340.,400.,500.,650.,1500.};
+    std::vector<double> bins_yt = {0.,0.35,0.85,1.45,2.50};
+    for(int i = 0; i < bins_mtt.size() - 1; i++)
+      vecVHGen.push_back(ZVarHisto("ayt", new TH1D(TString::Format("h_mttyt%d_cs", i + 1), "M ttbar, |y| top", bins_yt.size() - 1, &bins_yt[0]), "mtt", bins_mtt[i], bins_mtt[i + 1]));
+  }
+  {
+    // [mtt,ytt]
+    std::vector<double> bins_mtt = {340.,400.,500.,650.,1500.};
+    std::vector<double> bins_ytt = {0.,0.35,0.75,1.15,2.50};
+    for(int i = 0; i < bins_mtt.size() - 1; i++)
+      vecVHGen.push_back(ZVarHisto("aytt", new TH1D(TString::Format("h_mttytt%d_cs", i + 1), "M ttbar, |y| ttbar", bins_ytt.size() - 1, &bins_ytt[0]), "mtt", bins_mtt[i], bins_mtt[i + 1]));
+  }
+  {
+    // [mtt,detatt]
+    std::vector<double> bins_mtt = {340.,400.,500.,650.,1500.};
+    std::vector<double> bins_detatt = {0.0,0.4,1.2,6.0};
+    for(int i = 0; i < bins_mtt.size() - 1; i++)
+      vecVHGen.push_back(ZVarHisto("detatt", new TH1D(TString::Format("h_mttdetatt%d_cs", i + 1), "M ttbar, delta_eta(t,tbar)", bins_detatt.size() - 1, &bins_detatt[0]), "mtt", bins_mtt[i], bins_mtt[i + 1]));
+  }
+  {
+    // [mtt,dphitt]
+    std::vector<double> bins_mtt = {340.,400.,500.,650.,1500.};
+    std::vector<double> bins_dphitt = {0.0,2.2,2.95,TMath::Pi()+0.00001};
+    for(int i = 0; i < bins_mtt.size() - 1; i++)
+      vecVHGen.push_back(ZVarHisto("dphitt", new TH1D(TString::Format("h_mttdphitt%d_cs", i + 1), "M ttbar, delta_phi(t,tbar)", bins_dphitt.size() - 1, &bins_dphitt[0]), "mtt", bins_mtt[i], bins_mtt[i + 1]));
+  }
+  {
+    // [mtt,pttt]
+    std::vector<double> bins_mtt = {340.,400.,500.,650.,1500.};
+    std::vector<double> bins_pttt = {0.,30.,75.,150.,500.};
+    for(int i = 0; i < bins_mtt.size() - 1; i++)
+      vecVHGen.push_back(ZVarHisto("pttt", new TH1D(TString::Format("h_mttpttt%d_cs", i + 1), "M ttbar, pT(ttbar)", bins_pttt.size() - 1, &bins_pttt[0]), "mtt", bins_mtt[i], bins_mtt[i + 1]));
+  }
 
   // for reconstruction level the same binning is needed
   vecVH = vecVHGen;
